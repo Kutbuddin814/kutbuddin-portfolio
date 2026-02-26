@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./styles.css";
 import Header from "./components/Header";
 import About from "./components/About";
 import Skills from "./components/Skills";
@@ -13,7 +14,7 @@ export default function App() {
   return (
     <div className={dark ? "app dark" : "app"}>
       <button className="dark-toggle" onClick={() => setDark(!dark)}>
-        {dark ? "☀" : "🌙"}
+        {dark ? "Light" : "Dark"}
       </button>
 
       <Header />
