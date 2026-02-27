@@ -1,5 +1,4 @@
 import React from "react";
-import resumeImage from "../../public/kutbuddin_shaikh_Resume.png";
 
 export default function Resume() {
   return (
@@ -11,14 +10,18 @@ export default function Resume() {
 
       <div className="resume-container">
         <img
-          src={resumeImage}
+          src="/Kutbuddin_Shaikh_Resume.png"
           alt="Kutbuddin Shaikh Resume"
           className="resume-image"
         />
       </div>
 
       <div className="resume-buttons">
-        <a href={resumeImage} download="Kutbuddin_Shaikh_Resume.png" className="btn">
+        <a
+          href="/Kutbuddin_Shaikh_Resume.png"
+          download="Kutbuddin_Shaikh_Resume.png"
+          className="btn"
+        >
           Download Resume
         </a>
       </div>
