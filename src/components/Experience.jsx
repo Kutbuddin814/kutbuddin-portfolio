@@ -14,7 +14,7 @@ export default function Experience() {
             <h3>Lenovo LEAP Next Gen AI Intern</h3>
             <p className="muted">June 2025 - July 2025</p>
           </div>
-          <span className="pill">AI and Full Stack</span>
+          <span className="pill">AI and Web Development</span>
         </div>
 
         <ul className="experience-list">
@@ -22,6 +22,25 @@ export default function Experience() {
           <li>Integrated a chatbot and disease prediction model.</li>
           <li>Applied full stack development concepts using modern tools.</li>
         </ul>
+
+        <div className="project-actions">
+          <a
+            href="/certificate-Web-Development.pdf"
+            target="_blank"
+            rel="noreferrer"
+            className="btn"
+          >
+            View Web Development Certificate
+          </a>
+          <a
+            href="/certificate-Artificial-Intelligence.pdf"
+            target="_blank"
+            rel="noreferrer"
+            className="btn"
+          >
+            View AI Certificate
+          </a>
+        </div>
       </div>
     </section>
   );
