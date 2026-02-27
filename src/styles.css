@@ -340,6 +340,8 @@ p {
   min-width: 160px;
   display: flex;
   justify-content: flex-start;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .resume-container {

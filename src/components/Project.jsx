@@ -18,26 +18,34 @@ export default function Project() {
       <motion.div className="glass-card project-card" whileHover={{ scale: 1.02 }}>
         <div className="project-content">
           <div>
-            <h3>DualCare - Health Assistant</h3>
+            <h3>Susegad Supplies</h3>
             <p className="muted">
-              A web-based health assistant designed to support users with mental
-              and physical health-related interactions.
+              An e-commerce platform for selling authentic Goan products,
+              featuring a customer storefront and a dedicated admin panel.
             </p>
             <div className="project-meta">
-              <span>Streamlit</span>
-              <span>ML Model</span>
-              <span>Chatbot</span>
+              <span>E-commerce</span>
+              <span>Customer Portal</span>
+              <span>Admin Dashboard</span>
             </div>
           </div>
 
           <div className="project-actions">
             <a
-              href="https://mindeaseapp-eci77dyhuyvtrafwf8vwso.streamlit.app/"
+              href="https://susegad-supplies.vercel.app/shop"
               target="_blank"
               className="btn"
               rel="noreferrer"
             >
-              Live Demo
+              Customer Site
+            </a>
+            <a
+              href="https://susegad-supplies-admin.onrender.com/admin.html"
+              target="_blank"
+              className="btn"
+              rel="noreferrer"
+            >
+              Admin Panel
             </a>
           </div>
         </div>
