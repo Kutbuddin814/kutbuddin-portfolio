@@ -51,6 +51,9 @@ export default function Project() {
         </div>
       </motion.div>
 
+      {/* Add spacing between project cards */}
+      <div style={{ marginBottom: "2rem" }}></div>
+
       <motion.div className="glass-card project-card" whileHover={{ scale: 1.02 }}>
         <div className="project-content">
           <div>
@@ -95,5 +98,6 @@ export default function Project() {
           </div>
         </div>
       </motion.div>
+    </motion.section>
   );
 }
