@@ -50,6 +50,50 @@ export default function Project() {
           </div>
         </div>
       </motion.div>
-    </motion.section>
+
+      <motion.div className="glass-card project-card" whileHover={{ scale: 1.02 }}>
+        <div className="project-content">
+          <div>
+            <h3>OIBRE - Location-Based Service Platform</h3>
+            <p className="muted">
+              A location-based service application where users can search for services,
+              apply as service providers, and utilize distance-based calculations for
+              efficient service matching.
+            </p>
+            <div className="project-meta">
+              <span>Location-Based Services</span>
+              <span>Service Provider Platform</span>
+              <span>Distance Calculation</span>
+            </div>
+          </div>
+
+          <div className="project-actions">
+            <a
+              href="https://oibre-customer-frontend.vercel.app/"
+              target="_blank"
+              className="btn"
+              rel="noreferrer"
+            >
+              Customer App
+            </a>
+            <a
+              href="https://oibre-services-provider-web-fronten.vercel.app/"
+              target="_blank"
+              className="btn"
+              rel="noreferrer"
+            >
+              Service Provider Web
+            </a>
+            <a
+              href="https://oibre-service-provider-frontend.vercel.app/"
+              target="_blank"
+              className="btn"
+              rel="noreferrer"
+            >
+              Provider Registration
+            </a>
+          </div>
+        </div>
+      </motion.div>
   );
 }
