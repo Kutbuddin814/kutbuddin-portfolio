@@ -19,6 +19,14 @@ export default function Skills() {
       title: "Tools and Version Control",
       text: "Git, GitHub",
     },
+    {
+      title: "Soft Skills",
+      text: "Problem-solving, Communication, Teamwork",
+    },
+    {
+      title: "Mobile App Development",
+      text: "Flutter"
+    }
   ];
 
   return (
