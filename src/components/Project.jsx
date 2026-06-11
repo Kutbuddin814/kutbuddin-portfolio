@@ -98,6 +98,39 @@ export default function Project() {
           </div>
         </div>
       </motion.div>
+
+       {/* Add spacing between project cards */}
+        <div style={{ marginBottom: "2rem" }}></div>
+
+        <motion.div className="glass-card project-card" whileHover={{ scale: 1.02 }}>
+          <div className="project-content">
+            <div>
+              <h3>Javid Tours & Travels</h3>
+              <p className="muted">
+                A professional tours and travel website designed to help customers
+                explore travel packages, book trips, and access travel-related
+                services with a smooth and user-friendly experience.
+              </p>
+
+              <div className="project-meta">
+                <span>Travel & Tourism</span>
+                <span>Booking Platform</span>
+                <span>Responsive Website</span>
+              </div>
+            </div>
+
+            <div className="project-actions">
+              <a
+                href="https://javidtoursandtravels.co.in/"
+                target="_blank"
+                className="btn"
+                rel="noreferrer"
+              >
+                Visit Website
+              </a>
+            </div>
+          </div>
+        </motion.div>
     </motion.section>
   );
 }
