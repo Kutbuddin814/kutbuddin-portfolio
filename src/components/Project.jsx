@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
+import "./Project.css";
 
 export default function Project() {
+  const [selectedImage, setSelectedImage] = useState(null);
   return (
     <motion.section
       id="project"
@@ -99,38 +101,70 @@ export default function Project() {
         </div>
       </motion.div>
 
-       {/* Add spacing between project cards */}
-        <div style={{ marginBottom: "2rem" }}></div>
+      {/* Add spacing between project cards */}
 
-        <motion.div className="glass-card project-card" whileHover={{ scale: 1.02 }}>
-          <div className="project-content">
-            <div>
-              <h3>Javid Tours & Travels</h3>
-              <p className="muted">
-                A professional tours and travel website designed to help customers
-                explore travel packages, book trips, and access travel-related
-                services with a smooth and user-friendly experience.
-              </p>
 
-              <div className="project-meta">
-                <span>Travel & Tourism</span>
-                <span>Booking Platform</span>
-                <span>Responsive Website</span>
-              </div>
-            </div>
+      <motion.div className="glass-card project-card" whileHover={{ scale: 1.02 }}>
+        <h3>CodeNest – Freelance Services Mobile App</h3>
 
-            <div className="project-actions">
-              <a
-                href="https://javidtoursandtravels.co.in/"
-                target="_blank"
-                className="btn"
-                rel="noreferrer"
-              >
-                Visit Website
-              </a>
-            </div>
+        <p className="muted">
+          A Flutter-based mobile application developed to showcase my freelance
+          services, projects, skills, and portfolio. The app provides potential
+          clients with an easy way to explore services and connect with me.
+        </p>
+
+        <div className="project-meta">
+          <span>Flutter</span>
+          <span>Mobile App</span>
+          <span>Freelancing Platform</span>
+        </div>
+
+        <div className="project-actions">
+          <a href="/CodeNestv1.2.apk" download className="btn">
+            Download APK
+          </a>
+        </div>
+
+        <div className="app-gallery">
+          <img
+            src="/codenest-1.jpeg"
+            alt="CodeNest Home"
+            onClick={() => setSelectedImage("/codenest-1.jpeg")}
+          />
+
+          <img
+            src="/codenest-2.jpeg"
+            alt="CodeNest Services"
+            onClick={() => setSelectedImage("/codenest-2.jpeg")}
+          />
+
+          <img
+            src="/codenest-3.jpeg"
+            alt="CodeNest About"
+            onClick={() => setSelectedImage("/codenest-3.jpeg")}
+          />
+        </div>
+        {selectedImage && (
+          <div
+            className="image-modal"
+            onClick={() => setSelectedImage(null)}
+          >
+            <button
+              className="close-modal"
+              onClick={() => setSelectedImage(null)}
+            >
+              ✕
+            </button>
+
+            <img
+              src={selectedImage}
+              alt="Preview"
+              className="modal-image"
+              onClick={(e) => e.stopPropagation()}
+            />
           </div>
-        </motion.div>
+        )}
+      </motion.div>
     </motion.section>
   );
 }
