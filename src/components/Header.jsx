@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 import { handleButtonMouseMove } from "../utils/trackMouse";
 import "../styles/Header.css";
@@ -11,6 +11,17 @@ export default function Header() {
   ];
 
   const mouseX = useMotionValue(Infinity);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Safely manage screen dimension states
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    handleResize(); // Initialize on load
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <header className="hero">
@@ -78,11 +89,11 @@ export default function Header() {
           </a>
         </motion.div>
 
-        {/* Outer Dock Wrapper with mouse event tracking listener */}
+        {/* Outer Dock Wrapper */}
         <div 
           className="macro-dock-wrapper"
-          onMouseMove={(e) => mouseX.set(e.pageX)}
-          onMouseLeave={() => mouseX.set(Infinity)}
+          onMouseMove={(e) => !isMobile && mouseX.set(e.pageX)}
+          onMouseLeave={() => !isMobile && mouseX.set(Infinity)}
         >
           <motion.div 
             className="macro-dock-container"
@@ -91,7 +102,7 @@ export default function Header() {
             transition={{ delay: 0.8, duration: 0.5 }}
           >
             {badges.map((badge, idx) => (
-              <DockIcon key={idx} mouseX={mouseX} badge={badge} />
+              <DockIcon key={idx} mouseX={mouseX} badge={badge} isMobile={isMobile} />
             ))}
           </motion.div>
         </div>
@@ -100,20 +111,32 @@ export default function Header() {
   );
 }
 
-function DockIcon({ mouseX, badge }) {
+function DockIcon({ mouseX, badge, isMobile }) {
   const ref = useRef(null);
 
   const distance = useTransform(mouseX, (val) => {
+    if (isMobile) return 0;
     const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
     return val - bounds.x - bounds.width / 2;
   });
 
-  // Balanced target size mapping: 48px base up to 72px magnification peak
   const widthTransform = useTransform(distance, [-150, 0, 150], [48, 72, 48]);
   const heightTransform = useTransform(distance, [-150, 0, 150], [48, 72, 48]);
 
   const width = useSpring(widthTransform, { damping: 14, stiffness: 220, mass: 0.08 });
   const height = useSpring(heightTransform, { damping: 14, stiffness: 220, mass: 0.08 });
+
+  // Mobile layout bypasses the motion inline spring sizes entirely
+  if (isMobile) {
+    return (
+      <div className="dock-item-wrapper-mobile">
+        <div className="dock-icon-circle">
+          <span className="dock-tooltip">{badge.label}</span>
+          <span className="dock-emoji-glyph">{badge.icon}</span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <motion.div

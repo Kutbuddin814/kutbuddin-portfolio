@@ -69,10 +69,12 @@
   margin: 0 auto;
   gap: 40px;
   align-items: flex-start;
+  width: 100%; /* Ensures equal horizontal calculation */
 }
 
 .matrix-column-deck {
-  flex: 1;
+  flex: 1 1 0%; /* Standardizes structural width ratios to 1:1 */
+  min-width: 0;   /* Prevents content from forcing layout shifts */
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -84,7 +86,7 @@
 
 .matrix-master-card {
   position: relative;
-  background: #1e293b; /* Remains dark for structural balance and pops the accent accent colors */
+  background: #1e293b; 
   padding: 24px 32px;
   border-radius: 16px;
   display: flex;
@@ -94,6 +96,11 @@
   box-shadow: 0 10px 25px rgba(30, 41, 59, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.04);
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+  
+  /* ADD THESE ENTRIES TO FIX HEIGHT UNIFORMITY */
+  min-height: 90px;  /* Guarantees uniformity if one breaks into extra text lines */
+  width: 100%;       /* Ensures they fill container cards identically */
+  box-sizing: border-box;
 }
 
 .matrix-column-deck:hover .matrix-master-card {
@@ -250,26 +257,51 @@
     flex-direction: column;
     gap: 32px;
   }
+  
+  .matrix-column-deck {
+    width: 100%; /* Resets width perfectly when single columns pile vertically */
+  }
+}
+
+@media (max-width: 480px) {
+  /* Prevent horizontal text overflows from breaking the sizing balance on tiny devices */
+  .master-card-info {
+    padding-right: 8px;
+  }
+  
+  .matrix-master-card {
+    min-height: 80px; /* Slight scale down for compact mobile viewports */
+  }
 }
 
 /* Mobile & Touch Interface Optimization */
+/* Mobile & Touch Interface Optimization */
 @media (max-width: 768px) {
   .desktop-only {
-    display: none;
+    display: none !important;
   }
   
   .mobile-only {
-    display: inline-block;
+    display: inline-block !important;
   }
 
-  /* Disable CSS hover triggers on mobile layout to avoid browser confusion */
+  /* 1. BREAK STICKY HOVER: Stop mobile hover from triggering desktop behaviors */
   .matrix-column-deck:hover .matrix-cards-drop-zone {
     opacity: 0;
     visibility: hidden;
     max-height: 0;
   }
 
-  /* Force open state based on state toggle instead of hover */
+  .matrix-column-deck:hover .trigger-plus-icon {
+    transform: none;
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .matrix-column-deck:hover .trigger-status-text {
+    color: #64748b;
+  }
+
+  /* 2. STATE-BASED ACTIVATION: Apply styles only when explicitly opened via tap */
   .matrix-column-deck.mobile-forced-open .matrix-cards-drop-zone {
     opacity: 1;
     visibility: visible;
@@ -278,9 +310,15 @@
     max-height: 1500px;
   }
 
+  /* Icon activates ONLY when open */
   .matrix-column-deck.mobile-forced-open .trigger-plus-icon {
-    transform: rotate(45deg);
     background: var(--accent-clr);
+    transform: scale(1.05); /* Slight pop instead of desktop rotation confusion */
+  }
+
+  /* Text highlights ONLY when open */
+  .matrix-column-deck.mobile-forced-open .trigger-status-text {
+    color: #ffffff;
   }
   
   .matrix-column-deck.mobile-forced-open .matrix-master-card {

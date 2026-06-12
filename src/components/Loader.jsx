@@ -9,10 +9,10 @@ const Loader = ({ onFinished }) => {
   const [statusText, setStatusText] = useState('SYSTEM_BOOT // SECURE_MODE');
   const [isCracked, setIsCracked] = useState(false);
 
+  // 1. Ambient screen glitch loop on load
   useEffect(() => {
-    // Subtle ambient screen glitch loop on load
     const glitchInterval = setInterval(() => {
-      if (!isCracked) {
+      if (!isCracked && containerRef.current) {
         gsap.to(containerRef.current, {
           filter: `hue-rotate(${Math.random() * 20}deg) brightness(${1 + Math.random() * 0.15})`,
           duration: 0.05,
@@ -25,8 +25,16 @@ const Loader = ({ onFinished }) => {
     return () => clearInterval(glitchInterval);
   }, [isCracked]);
 
+  // 2. Automatically trigger the blast sequence after 1.5 seconds
+  useEffect(() => {
+    const autoTimer = setTimeout(() => {
+      handleScreenImpact();
+    }, 1500); // Adjust this delay (in ms) to control how long it stays before exploding
+
+    return () => clearTimeout(autoTimer);
+  }, []);
+
   const handleScreenImpact = () => {
-    if (isCracked) return; // Prevent double triggers
     setIsCracked(true);
     setStatusText('CRITICAL_OVERLOAD // SHIELD_BREACH');
 
@@ -98,7 +106,7 @@ const Loader = ({ onFinished }) => {
       ease: 'power3.in',
       stagger: 0.01
     }, 'blast')
-    .to('.interactive-click-prompt', { opacity: 0, scale: 0.5, duration: 0.2 }, 'blast')
+    .to('.cyber-hud-elements', { opacity: 0, scale: 0.9, duration: 0.3 }, 'blast')
 
     // 5. CLEANUP HANDOFF
     .to(containerRef.current, {
@@ -111,7 +119,6 @@ const Loader = ({ onFinished }) => {
     <div 
       ref={containerRef} 
       className={`cracked-viewport-layer ${isCracked ? 'active-breach' : ''}`}
-      onClick={handleScreenImpact}
     >
       {/* Absolute Core Plasma Light */}
       <div ref={lightLeakRef} className="energy-light-leak"></div>
@@ -120,10 +127,6 @@ const Loader = ({ onFinished }) => {
       {/* Cyberpunk HUD Interface Overlay */}
       <div className="cyber-hud-elements">
         <div className="hud-header-scan">CORE_MONITOR // NODE_09</div>
-        <div className={`interactive-click-prompt ${isCracked ? 'hidden' : ''}`}>
-          <div className="scan-crosshair"></div>
-          <span className="pulse-text">➔ CLICK SCREEN TO BREACH CORE ➔</span>
-        </div>
         <div className="hud-fault-text">{statusText}</div>
       </div>
 

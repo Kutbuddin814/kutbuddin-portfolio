@@ -54,17 +54,18 @@ const INITIAL_PROJECTS = [
 export default function Project() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [projects, setProjects] = useState(INITIAL_PROJECTS);
+  const [history, setHistory] = useState([]); 
 
   return (
     <section id="project" className="projects-section-root">
       <div className="section-header">
         <p className="section-kicker">Featured work</p>
         <h2 className="section-title">Projects</h2>
-        <span className="swipe-hint">Swipe cards left or right to see more projects</span>
+        <span className="swipe-hint">Swipe Left for Next • Swipe Right to go Back</span>
       </div>
 
       <div className="swipe-stack-container">
-        <AnimatePresence>
+        <AnimatePresence initial={false}>
           {projects.map((proj, idx) => (
             <ProjectCard 
               key={proj.id}
@@ -72,12 +73,15 @@ export default function Project() {
               idx={idx}
               projects={projects}
               setProjects={setProjects}
+              history={history}
+              setHistory={setHistory}
               setSelectedImage={setSelectedImage}
             />
           ))}
         </AnimatePresence>
       </div>
 
+      {/* Embedded Component-scoped image preview modal box */}
       <AnimatePresence>
         {selectedImage && (
           <motion.div
@@ -87,18 +91,25 @@ export default function Project() {
             exit={{ opacity: 0 }}
             onClick={() => setSelectedImage(null)}
           >
-            <button className="close-modal" onClick={() => setSelectedImage(null)} aria-label="Close modal">
-              ✕
-            </button>
-            <motion.img
-              src={selectedImage}
-              alt="Expanded view preview"
-              className="modal-image"
-              initial={{ scale: 0.92 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.92 }}
-              onClick={(e) => e.stopPropagation()}
-            />
+            <div className="modal-image-wrapper">
+              <button 
+                className="close-modal" 
+                onClick={() => setSelectedImage(null)} 
+                aria-label="Close image popup panel"
+              >
+                ✕
+              </button>
+              <motion.img
+                src={selectedImage}
+                alt="Contained view dynamic preview"
+                className="modal-image"
+                initial={{ scale: 0.94, y: 15 }}
+                animate={{ scale: 1, y: 0 }}
+                exit={{ scale: 0.94, y: 15 }}
+                transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                onClick={(e) => e.stopPropagation()}
+              />
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -106,11 +117,14 @@ export default function Project() {
   );
 }
 
-const ProjectCard = ({ proj, idx, projects, setProjects, setSelectedImage }) => {
+const ProjectCard = ({ proj, idx, projects, setProjects, history, setHistory, setSelectedImage }) => {
   const x = useMotionValue(0);
   
   const rotateRaw = useTransform(x, [-200, 200], [-10, 10]);
   const opacity = useTransform(x, [-240, 0, 240], [0, 1, 0]);
+
+  const dragLeftOpacity = useTransform(x, [-140, -30], [1, 0]);
+  const dragRightOpacity = useTransform(x, [30, 140], [0, 1]);
 
   const isFront = idx === projects.length - 1;
 
@@ -120,14 +134,29 @@ const ProjectCard = ({ proj, idx, projects, setProjects, setSelectedImage }) => 
   });
 
   const handleDragEnd = (event, info) => {
-    if (Math.abs(info.offset.x) > 130) {
+    // 1. DRAG RIGHT TO LEFT (info.offset.x is negative) -> NEXT PROJECT
+    if (info.offset.x < -130) {
+      const cardToDismiss = projects[projects.length - 1];
+      setHistory((prev) => [...prev, cardToDismiss]);
+      
       const remaining = projects.filter((item) => item.id !== proj.id);
       setProjects(remaining);
 
       if (remaining.length === 0) {
         setTimeout(() => {
           setProjects(INITIAL_PROJECTS);
+          setHistory([]);
         }, 400); 
+      }
+    } 
+    // 2. DRAG LEFT TO RIGHT (info.offset.x is positive) -> BACK TO PREVIOUS PROJECT
+    else if (info.offset.x > 130) {
+      if (history.length > 0) {
+        const previousCard = history[history.length - 1];
+        setHistory((prev) => prev.slice(0, -1)); 
+        setProjects((prev) => [...prev, previousCard]); 
+      } else {
+        x.set(0);
       }
     }
   };
@@ -149,17 +178,40 @@ const ProjectCard = ({ proj, idx, projects, setProjects, setSelectedImage }) => 
         scale: isFront ? 1 : 0.96 - (projects.length - 1 - idx) * 0.02,
         y: isFront ? 0 : (projects.length - 1 - idx) * -10,
       }}
+      exit={{
+        x: x.get() > 0 ? 400 : -400, 
+        opacity: 0,
+        scale: 0.9,
+        transition: { duration: 0.2 }
+      }}
       transition={{ type: "spring", stiffness: 350, damping: 28 }}
       drag={isFront ? "x" : false}
       dragConstraints={{ left: 0, right: 0 }}
       dragElastic={0.65}
       onDragEnd={handleDragEnd}
     >
-      {/* FIXED: Background cards visibility hidden blocks the text from bleeding over */}
+      {isFront && (
+        <>
+          <motion.div className="drag-overlay-hint left-hint" style={{ opacity: dragLeftOpacity }}>
+            Next Project ➔
+          </motion.div>
+          <motion.div className="drag-overlay-hint right-hint" style={{ opacity: dragRightOpacity }}>
+            ➔ Back
+          </motion.div>
+        </>
+      )}
+
       <div className="card-inner" style={{ visibility: isFront ? "visible" : "hidden" }}>
         <div className={`project-split-layout layout-${proj.layout}`}>
           
           <div className="project-info">
+            {isFront && (
+              <div className="card-swipe-instruction-badge">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="11 17 6 12 11 7"></polyline><polyline points="18 17 13 12 18 7"></polyline></svg>
+                Swipe Left for Next • Right for Back
+              </div>
+            )}
+
             <h3 className="project-title">{proj.title}</h3>
             <p className="project-description">{proj.desc}</p>
             

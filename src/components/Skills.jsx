@@ -25,19 +25,19 @@ export default function Skills() {
       </div>
 
       <div className="matrix-split-grid">
-        <SkillHoverColumn 
+        <SkillHoverColumn
           id="tech"
-          title="Technical Core" 
+          title="Technical Core"
           subtitle="Engineering & Architecture"
-          skills={techSkills} 
+          skills={techSkills}
           accentColor="#6366f1"
         />
 
-        <SkillHoverColumn 
+        <SkillHoverColumn
           id="soft"
-          title="Interpersonal Core" 
+          title="Interpersonal Core"
           subtitle="Collaboration & Strategy"
-          skills={softSkills} 
+          skills={softSkills}
           accentColor="#10b981"
         />
       </div>
@@ -50,12 +50,12 @@ function SkillHoverColumn({ title, subtitle, skills, accentColor, id }) {
   const [isMobileTapOpen, setIsMobileTapOpen] = useState(false);
 
   return (
-    <div 
+    <div
       className={`matrix-column-deck ${isMobileTapOpen ? "mobile-forced-open" : ""}`}
       onClick={() => setIsMobileTapOpen(!isMobileTapOpen)}
     >
       {/* Master Core Card */}
-      <div 
+      <div
         className="matrix-master-card"
         style={{ "--accent-clr": accentColor }}
       >
@@ -69,7 +69,11 @@ function SkillHoverColumn({ title, subtitle, skills, accentColor, id }) {
           <span className="trigger-status-text mobile-only">
             {isMobileTapOpen ? "TAP TO CLOSE" : "TAP TO VIEW"}
           </span>
-          <div className="trigger-plus-icon">+</div>
+          <div className="trigger-plus-icon">
+            {/* On mobile, use state to switch characters; desktop relies on the CSS rotation */}
+            <span className="mobile-only">{isMobileTapOpen ? "×" : "+"}</span>
+            <span className="desktop-only">+</span>
+          </div>
         </div>
       </div>
 
@@ -89,9 +93,9 @@ function SkillHoverColumn({ title, subtitle, skills, accentColor, id }) {
                 <h4>{skill.title}</h4>
               </div>
               <p className="sub-card-description">{skill.text}</p>
-              
+
               <div className="metric-bar-track">
-                <motion.div 
+                <motion.div
                   className="metric-bar-fill"
                   style={{ backgroundColor: accentColor }}
                   initial={{ width: 0 }}
