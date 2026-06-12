@@ -73,13 +73,13 @@
 }
 
 /* ==========================================================================
-   STACK POSITIONING RULES (Fluid Height Configuration)
+   STACK POSITIONING RULES
    ========================================================================== */
 .swipe-stack-container {
   position: relative;
   width: 100%;
   max-width: 1140px;
-  height: 560px; /* Perfectly safe headroom container for row grids */
+  height: 560px; 
   margin: 40px auto 0 auto;
   display: grid;
   place-items: center;
@@ -103,7 +103,7 @@
   cursor: grabbing;
 }
 
-/* Persistent Header Instruction Badge */
+/* Instruction Badge */
 .card-swipe-instruction-badge {
   display: inline-flex;
   align-items: center;
@@ -183,7 +183,7 @@
 }
 
 /* ==========================================================================
-   IMAGE POPUP MODAL (Scoped Viewport Handling)
+   IMAGE POPUP MODAL
    ========================================================================== */
 .image-modal {
   position: absolute;
@@ -264,7 +264,7 @@
 .project-info {
   display: flex;
   flex-direction: column;
-  min-width: 0; /* Clear out default grid-item layout stretch triggers */
+  min-width: 0;
 }
 
 .project-title {
@@ -352,11 +352,6 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.project-actions-row .btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 24px rgba(255, 98, 36, 0.28);
-}
-
 /* ==========================================================================
    INFINITE CAROUSEL SYSTEM
    ========================================================================== */
@@ -404,7 +399,6 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 10px 24px rgba(0,0,0,0.3);
   cursor: pointer;
-  transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
 .mockup-frame-mobile img {
@@ -424,7 +418,6 @@
   border: 1px solid rgba(255, 255, 255, 0.09);
   box-shadow: 0 12px 28px rgba(0,0,0,0.35);
   cursor: pointer;
-  transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
 .mockup-frame-desktop img {
@@ -451,13 +444,8 @@
   background: rgba(255, 255, 255, 0.2);
 }
 
-.mockup-frame-mobile:hover, .mockup-frame-desktop:hover {
-  transform: scale(1.04) translateY(-4px) !important;
-  border-color: rgba(255, 98, 36, 0.5);
-}
-
 /* ==========================================================================
-   COMPACT & MOBILE RESPONSIVE ADAPTERS (The Fix)
+   RESPONSIVE OVERRIDES (Breakpoints down to 237px)
    ========================================================================== */
 @media (max-width: 1024px) {
   .swipe-stack-container {
@@ -475,43 +463,26 @@
 
 @media (max-width: 768px) {
   .swipe-stack-container {
-    height: 600px; 
+    height: 620px; 
   }
   .card-inner {
     padding: 28px 24px;
   }
-  .project-meta-colored {
-    margin: 14px 0;
-  }
 }
 
-/* Targets Small to Ultra-Small Mobile Devices Safely */
 @media (max-width: 480px) {
   .swipe-stack-container {
-    height: 590px; /* Adapts beautifully without crushing layout features */
+    height: 660px; /* Base mobile height configuration */
   }
   .projects-section-root {
     padding: 40px 10px;
   }
   .card-inner {
-    padding: 20px 16px;
-    align-items: flex-start; /* Keeps text flowing top-down */
-  }
-  .card-swipe-instruction-badge {
-    padding: 5px 10px;
-    font-size: 10px;
-    margin-bottom: 12px;
+    padding: 24px 16px;
+    align-items: flex-start;
   }
   .project-description {
     line-height: 1.5;
-  }
-  .project-meta-colored {
-    margin: 12px 0;
-    gap: 6px;
-  }
-  .project-meta-colored span {
-    padding: 4px 10px;
-    font-size: 11px;
   }
   .project-actions-row {
     flex-direction: column;
@@ -521,24 +492,17 @@
   .project-actions-row .btn {
     width: 100%;
     box-sizing: border-box;
-    padding: 11px 16px;
-    font-size: 13px;
-  }
-  .mockup-frame-desktop {
-    width: 170px; /* Scaled down browser mockups so they sit beautifully inside mobile frames */
-  }
-  .mockup-frame-mobile {
-    width: 90px;
-  }
-  .close-modal {
-    top: -40px;
+    padding: 12px 16px;
   }
 }
 
-/* Catch Ultra-Narrow Screens (like iPhone SE) */
+/* Specific styling for narrow configurations under 360px */
 @media (max-width: 360px) {
   .swipe-stack-container {
-    height: 575px;
+    height: 690px;
+  }
+  .card-inner {
+    padding: 20px 12px;
   }
   .project-title {
     font-size: 20px !important;
@@ -546,7 +510,59 @@
   .project-description {
     font-size: 13px;
   }
-  .mockup-frame-desktop {
-    width: 140px;
+  .project-meta-colored span {
+    padding: 4px 10px;
+    font-size: 11px;
+  }
+  .mockup-frame-desktop { width: 140px; }
+  .mockup-frame-mobile { width: 85px; }
+}
+
+/* CRITICAL FIX: Extreme responsive rule targetting widths like 237px */
+@media (max-width: 280px) {
+  .projects-section-root {
+    padding: 24px 6px;
+  }
+  .swipe-stack-container {
+    height: 760px; /* Generous stretch allowance to accommodate layout stacking */
+  }
+  .card-inner {
+    padding: 16px 8px;
+  }
+  .card-swipe-instruction-badge {
+    font-size: 9px;
+    padding: 4px 8px;
+    margin-bottom: 10px;
+  }
+  .project-title {
+    font-size: 17px !important;
+    margin-bottom: 8px;
+  }
+  .project-description {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+  .project-meta-colored {
+    margin: 10px 0;
+    gap: 4px;
+  }
+  .project-meta-colored span {
+    font-size: 10px;
+    padding: 3px 8px;
+  }
+  .project-actions-row .btn {
+    font-size: 12px;
+    padding: 10px 12px;
+  }
+  .mockup-frame-desktop { 
+    width: 110px; 
+    padding: 12px 4px 4px 4px;
+  }
+  .mockup-frame-mobile { 
+    width: 65px; 
+    padding: 3px;
+  }
+  .infinite-carousel-track {
+    gap: 10px;
   }
 }
