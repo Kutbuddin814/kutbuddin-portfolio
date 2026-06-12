@@ -81,7 +81,7 @@ export default function Project() {
         </AnimatePresence>
       </div>
 
-      {/* Embedded Component-scoped image preview modal box */}
+      {/* Component-scoped image preview modal box */}
       <AnimatePresence>
         {selectedImage && (
           <motion.div
@@ -134,7 +134,6 @@ const ProjectCard = ({ proj, idx, projects, setProjects, history, setHistory, se
   });
 
   const handleDragEnd = (event, info) => {
-    // 1. DRAG RIGHT TO LEFT (info.offset.x is negative) -> NEXT PROJECT
     if (info.offset.x < -130) {
       const cardToDismiss = projects[projects.length - 1];
       setHistory((prev) => [...prev, cardToDismiss]);
@@ -149,7 +148,6 @@ const ProjectCard = ({ proj, idx, projects, setProjects, history, setHistory, se
         }, 400); 
       }
     } 
-    // 2. DRAG LEFT TO RIGHT (info.offset.x is positive) -> BACK TO PREVIOUS PROJECT
     else if (info.offset.x > 130) {
       if (history.length > 0) {
         const previousCard = history[history.length - 1];
@@ -171,23 +169,23 @@ const ProjectCard = ({ proj, idx, projects, setProjects, history, setHistory, se
         zIndex: idx,
         pointerEvents: isFront ? "auto" : "none",
         boxShadow: isFront
-          ? "0 35px 70px -15px rgba(0, 0, 0, 0.5), 0 15px 25px -10px rgba(0, 0, 0, 0.35)"
-          : "0 6px 14px rgba(0, 0, 0, 0.2)",
+          ? "0 35px 70px -15px rgba(0, 0, 0, 0.4), 0 15px 25px -10px rgba(0, 0, 0, 0.25)"
+          : "0 6px 14px rgba(0, 0, 0, 0.15)",
       }}
       animate={{
         scale: isFront ? 1 : 0.96 - (projects.length - 1 - idx) * 0.02,
-        y: isFront ? 0 : (projects.length - 1 - idx) * -10,
+        y: isFront ? 0 : (projects.length - 1 - idx) * -8,
       }}
       exit={{
-        x: x.get() > 0 ? 400 : -400, 
+        x: x.get() > 0 ? 500 : -500, 
         opacity: 0,
-        scale: 0.9,
-        transition: { duration: 0.2 }
+        scale: 0.95,
+        transition: { duration: 0.25 }
       }}
-      transition={{ type: "spring", stiffness: 350, damping: 28 }}
+      transition={{ type: "spring", stiffness: 350, damping: 30 }}
       drag={isFront ? "x" : false}
       dragConstraints={{ left: 0, right: 0 }}
-      dragElastic={0.65}
+      dragElastic={0.5}
       onDragEnd={handleDragEnd}
     >
       {isFront && (
@@ -238,7 +236,7 @@ const ProjectCard = ({ proj, idx, projects, setProjects, history, setHistory, se
                   >
                     <span>{lnk.label}</span>
                     {lnk.download && (
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                     )}
                   </a>
                 ))}

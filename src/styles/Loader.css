@@ -9,6 +9,7 @@
   justify-content: center;
   align-items: center;
   perspective: 1200px;
+  cursor: crosshair;
 }
 
 /* 1. Kinetic Lighting and Blast Overlays */
@@ -51,10 +52,30 @@
 .hud-fault-text { 
   align-self: center; color: #ff0055; font-size: 13px; font-weight: bold; letter-spacing: 3px;
   text-shadow: 0 0 8px rgba(255, 0, 85, 0.6);
-  margin-auto: auto; /* Centers text vertically now that prompt is missing */
-  margin-top: calc(50vh - 40px);
-  transform: translateY(-50%);
 }
+
+.interactive-click-prompt {
+  align-self: center;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  transition: opacity 0.3s ease;
+}
+.interactive-click-prompt.hidden { opacity: 0; }
+
+.scan-crosshair {
+  width: 40px; height: 40px;
+  border: 1px solid #00ffcc;
+  border-radius: 50%;
+  position: relative;
+  animation: radarRotate 4s linear infinite;
+}
+.scan-crosshair::before {
+  content: ''; position: absolute; top: 50%; left: -10px; right: -10px; height: 1px; background: #00ffcc;
+}
+.pulse-text { color: #00ffcc; font-size: 12px; letter-spacing: 1px; animation: textGlow 1.5s infinite; }
 
 /* 3. 3D Shatter Graphics Pipeline */
 .glass-shatter-matrix {
@@ -99,3 +120,10 @@
 
 /* Active State Tuning */
 .active-breach { background-color: #000000; }
+
+/* System Core Animations */
+@keyframes radarRotate { 100% { transform: rotate(360deg); } }
+@keyframes textGlow {
+  0%, 100% { opacity: 0.4; text-shadow: 0 0 2px rgba(0,255,204,0.2); }
+  50% { opacity: 1; text-shadow: 0 0 12px rgba(0,255,204,0.8); }
+}
