@@ -1,0 +1,221 @@
+/* ==========================================================================
+   DEFAULT LIGHT THEME VARIABLES (Default Base State)
+   ========================================================================== */
+.resume-section-root {
+  --resume-bg: #ffffff;
+  --resume-title-main: #0f172a;             /* Dark slate text */
+  --resume-kicker: #059669;                 /* Emerald green accent */
+  --resume-card-bg: #ffffff;
+  --resume-card-border: rgba(15, 23, 42, 0.08);
+  --resume-card-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.15), 0 20px 40px -15px rgba(0, 0, 0, 0.2);
+  --resume-img-border: rgba(0, 0, 0, 0.05);
+  --resume-img-opacity: 1;
+
+  padding: 80px 16px;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: var(--resume-bg);
+  transition: background-color 0.3s ease;
+}
+
+/* ==========================================================================
+   DARK THEME OVERRIDES (Triggered when parent wrapper has .dark class)
+   ========================================================================== */
+.dark .resume-section-root {
+  --resume-bg: #0b0f19;                     /* Deep space background background */
+  --resume-title-main: #ffffff;             /* Turns "Curriculum Vitae" pure white */
+  --resume-kicker: #10b981;
+  --resume-card-bg: #15181f;
+  --resume-card-border: rgba(255, 255, 255, 0.05);
+  --resume-card-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.6);
+  --resume-img-border: rgba(255, 255, 255, 0.04);
+  --resume-img-opacity: 0.92;
+}
+
+/* ==========================================================================
+   SECTION HEADER STRUCTURAL CONFIGURATIONS
+   ========================================================================== */
+.section-header {
+  max-width: 1140px;
+  margin: 0 auto 28px auto;
+  padding-left: 4px;
+}
+
+.section-kicker {
+  color: var(--resume-kicker);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 0 0 6px 0;
+  transition: color 0.3s ease;
+}
+
+.resume-section-root .section-title {
+  color: var(--resume-title-main) !important;
+  font-size: clamp(28px, 5vw, 36px);
+  font-weight: 700;
+  margin: 0;
+  text-shadow: none !important;
+  transition: color 0.3s ease;
+}
+
+/* ==========================================================================
+   3D PERSPECTIVE INTERACTIVE VIEWPORT ENGINE
+   ========================================================================== */
+.resume-3d-perspective-wrapper {
+  perspective: 1200px; /* Establishes depth of field for 3D translations */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 60px auto;
+  width: 100%;
+  max-width: 1140px;
+}
+
+.resume-interactive-card {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  background: var(--resume-card-bg);
+  border-radius: 20px;
+  padding: 12px;
+  cursor: pointer;
+  box-shadow: var(--resume-card-shadow);
+  border: 1px solid var(--resume-card-border);
+  will-change: transform;
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.resume-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  border: 1px solid var(--resume-img-border);
+  opacity: var(--resume-img-opacity);
+  pointer-events: none; /* Prevents visual dragging bugs on desktop devices */
+  transition: border-color 0.3s ease, opacity 0.3s ease;
+}
+
+/* ==========================================================================
+   HOVER HIGHLIGHT GLARE LAYER & OVERLAY BADGES
+   ========================================================================== */
+.resume-interactive-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(255, 98, 36, 0.15) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.resume-interactive-card:hover::after {
+  opacity: 1;
+}
+
+/* Contextual Micro-indicators floating along Z-Axis */
+.resume-hover-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(13, 15, 18, 0.4);
+  border-radius: 20px;
+  opacity: 0;
+  transform: translateZ(20px) scale(0.95); /* Shifts position forward */
+  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+.resume-interactive-card:hover .resume-hover-overlay {
+  opacity: 1;
+  transform: translateZ(30px) scale(1);
+}
+
+.overlay-badge {
+  background: #ff6224;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 100px;
+  font-weight: 600;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 10px 20px rgba(255, 98, 36, 0.3);
+}
+
+/* ==========================================================================
+   BUTTON STRUCTURAL ADAPTATIONS
+   ========================================================================== */
+.resume-buttons {
+  text-align: center;
+  margin-top: 36px;
+  margin-bottom: 20px;
+}
+
+.resume-buttons .btn {
+  background: #ff6224;
+  color: #ffffff;
+  padding: 16px 38px;
+  border-radius: 100px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 24px rgba(255, 98, 36, 0.22);
+  transition: transform 0.2s cubic-bezier(0.2, 0, 0.2, 1), box-shadow 0.2s ease;
+}
+
+.resume-buttons .btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px rgba(255, 98, 36, 0.35);
+}
+
+.resume-buttons .btn svg {
+  transition: transform 0.2s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+.resume-buttons .btn:hover svg {
+  transform: translateY(2px);
+}
+
+/* ==========================================================================
+   EXPANDED TARGET MODAL SCALE SETTINGS
+   ========================================================================== */
+.resume-modal-target {
+  max-width: 520px !important; /* Maximizes layout height read scales cleanly */
+  max-height: 85vh !important;
+  border: 4px solid rgba(255, 255, 255, 0.08);
+  background: #ffffff;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN SYSTEM OVERRIDES
+   ========================================================================== */
+@media (max-width: 576px) {
+  .resume-3d-perspective-wrapper {
+    margin: 40px auto;
+    perspective: none; /* Disable 3D depth matrices on small touch targets to prevent layout skewing */
+  }
+  .resume-interactive-card {
+    max-width: 290px;
+    padding: 8px;
+  }
+  .resume-hover-overlay {
+    transform: none !important; /* Reverts position matrices across standard arrays */
+    background: rgba(13, 15, 18, 0.2);
+  }
+  .resume-buttons .btn {
+    width: 85%;
+    box-sizing: border-box;
+  }
+  .resume-modal-target {
+    max-width: 90% !important;
+  }
+}

@@ -1,0 +1,349 @@
+/* ==========================================================================
+   APP CONTAINER
+   ========================================================================== */
+
+.app {
+  min-height: 100vh;
+}
+
+/* ==========================================
+   LIGHT BACKGROUND
+   ========================================== */
+
+.app:not(.dark) {
+  background:
+    radial-gradient(
+      circle at 10% 10%,
+      rgba(255,98,36,0.04) 0%,
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 90% 80%,
+      rgba(4,75,55,0.04) 0%,
+      transparent 50%
+    ),
+    var(--bg);
+}
+
+/* ==========================================
+   DARK BACKGROUND
+   ========================================== */
+
+.app.dark {
+  background:
+    radial-gradient(
+      circle at 10% 10%,
+      rgba(255,118,64,0.03) 0%,
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at 90% 85%,
+      rgba(60,208,158,0.03) 0%,
+      transparent 50%
+    ),
+    var(--bg);
+}
+
+/* ==========================================
+   BUTTONS
+   ========================================== */
+
+.btn {
+  background: var(--accent-2);
+  color: #fff;
+  padding: 16px 36px;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.01em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 10px 25px rgba(255, 98, 36, 0.2);
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast),
+    background var(--transition-fast);
+}
+
+.btn:hover {
+  background: var(--accent-2-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 35px rgba(255, 98, 36, 0.35);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+/* ==========================================
+   OUTLINE BUTTON
+   ========================================== */
+
+.btn.outline {
+  background: transparent;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  box-shadow: none;
+}
+
+.btn.outline:hover {
+  background: var(--accent-light);
+  border-color: var(--accent);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(var(--accent-solid-rgb), 0.1);
+}
+
+/* ==========================================
+   HERO OUTLINE BUTTON
+   ========================================== */
+
+.hero .btn.outline {
+  border-color: rgba(255, 255, 255, 0.4);
+  color: white;
+}
+
+.hero .btn.outline:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: white;
+  box-shadow: none;
+}
+
+/* ==========================================
+   DARK TOGGLE
+   ========================================== */
+
+.dark-toggle {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 100;
+  padding: 14px 22px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-color);
+  background: var(--ink);
+  color: var(--bg);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.dark-toggle:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.25);
+}
+
+/* ==========================================================================
+   VISUAL DEVELOPMENT STEP REVEALER (SKETCH -> WIREFRAME -> BLUEPRINT)
+   ========================================================================== */
+
+.process-loader-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: background-color 0.4s var(--ease-smooth);
+}
+
+.loader-visual-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  width: 90%;
+  max-width: 800px;
+  z-index: 10;
+}
+
+/* Mock Web Window Frame Container */
+.mock-website-window {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background-color: transparent;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  transition: all 0.4s ease;
+}
+
+/* Sub-Element Mock Vectors */
+.mock-nav, .mock-nav-links, .mock-hero, .mock-hero-left, .mock-cards-grid {
+  display: flex;
+}
+.mock-nav { justify-content: space-between; align-items: center; width: 100%; }
+.mock-nav-links { gap: 15px; }
+.mock-hero { width: 100%; height: 55%; gap: 30px; }
+.mock-hero-left { flex: 1.2; flex-direction: column; gap: 14px; justify-content: center; }
+.mock-hero-right { flex: 1; display: flex; }
+.mock-cards-grid { width: 100%; gap: 20px; height: 25%; }
+.mock-card { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+
+/* Placeholder Base Morphing Settings */
+.mock-logo, .mock-link, .mock-title-line, .mock-btn-shape, .mock-image-box, .mock-card-img, .mock-card-line {
+  transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+  background-color: transparent;
+}
+
+.wireframe-cross-line {
+  position: absolute;
+  width: 141%;
+  height: 1px;
+  top: 50%;
+  left: -20%;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+.line-a { transform: rotate(33deg); }
+.line-b { transform: rotate(-33deg); }
+
+/* Bottom Heading Indicator String */
+.stage-label-text {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  transition: color 0.4s ease;
+}
+
+/* -------------------------------------------
+   PHASE 1: HAND-DRAWN SKETCH THEME
+   ------------------------------------------- */
+.process-loader-layer.sketch {
+  background-color: #f7f4ed; /* Cream pencil sketch paper */
+}
+.process-loader-layer.sketch .stage-label-text { color: #6b6659; }
+.process-loader-layer.sketch .mock-website-window {
+  border: 2px solid #5a5447;
+  border-radius: 4px;
+  transform: rotate(-0.5deg);
+}
+/* Loosely rendered graphite sketch lines */
+.process-loader-layer.sketch .mock-logo { width: 35px; height: 35px; border-radius: 50%; border: 2px solid #5a5447; transform: scale(0.9) rotate(5deg); }
+.process-loader-layer.sketch .mock-link { width: 45px; height: 8px; border-bottom: 2px dashed #5a5447; }
+.process-loader-layer.sketch .mock-title-line { height: 10px; border-bottom: 2px solid #5a5447; transform: skewX(-3deg); }
+.process-loader-layer.sketch .mock-title-line.max { width: 85%; }
+.process-loader-layer.sketch .mock-title-line.mid { width: 60%; }
+.process-loader-layer.sketch .mock-btn-shape { width: 110px; height: 32px; border: 2px solid #5a5447; border-radius: 3px; transform: translateY(5px); }
+.process-loader-layer.sketch .mock-image-box { width: 100%; height: 100%; border: 2px solid #5a5447; transform: rotate(1deg); }
+.process-loader-layer.sketch .mock-card-img { width: 100%; height: 70%; border: 2px solid #5a5447; }
+.process-loader-layer.sketch .mock-card-line { width: 70%; height: 6px; border-bottom: 2px solid #5a5447; }
+
+/* -------------------------------------------
+   PHASE 2: WIREFRAME THEME
+   ------------------------------------------- */
+.process-loader-layer.wireframe {
+  background-color: #ffffff; /* Clean structured white desk space */
+}
+.process-loader-layer.wireframe .stage-label-text { color: #888888; }
+.process-loader-layer.wireframe .mock-website-window {
+  border: 1px solid #d1d1d1;
+  border-radius: 8px;
+}
+/* Structured layout blocks */
+.process-loader-layer.wireframe .mock-logo { width: 40px; height: 40px; background-color: #e0e0e0; border-radius: 4px; }
+.process-loader-layer.wireframe .mock-link { width: 50px; height: 10px; background-color: #f0f0f0; border-radius: 2px; }
+.process-loader-layer.wireframe .mock-title-line { height: 12px; background-color: #e0e0e0; border-radius: 4px; }
+.process-loader-layer.wireframe .mock-title-line.max { width: 100%; }
+.process-loader-layer.wireframe .mock-title-line.mid { width: 70%; }
+.process-loader-layer.wireframe .mock-btn-shape { width: 120px; height: 36px; background-color: #cccccc; border-radius: 6px; }
+.process-loader-layer.wireframe .mock-image-box { width: 100%; height: 100%; background-color: #f0f0f0; border: 1px solid #d1d1d1; position: relative; overflow: hidden; }
+/* Activate layout placeholder crossing tags */
+.process-loader-layer.wireframe .wireframe-cross-line { opacity: 1; stroke: #d1d1d1; background-color: #cccccc; }
+.process-loader-layer.wireframe .mock-card-img { width: 100%; height: 75%; background-color: #f0f0f0; border-radius: 4px; }
+.process-loader-layer.wireframe .mock-card-line { width: 80%; height: 10px; background-color: #e0e0e0; border-radius: 2px; }
+
+/* -------------------------------------------
+   PHASE 3: CAD BLUEPRINT ENGINEERING THEME
+   ------------------------------------------- */
+.process-loader-layer.blueprint {
+  background-color: #003366; /* Engineering Blueprint Blue */
+}
+.process-loader-layer.blueprint .stage-label-text { color: #00ffcc; text-shadow: 0 0 8px rgba(0,255,204,0.4); }
+.process-loader-layer.blueprint .mock-website-window {
+  border: 1.5px solid #00ffcc;
+  box-shadow: 0 0 20px rgba(0,255,204,0.15);
+}
+/* Cyber technical wireframe overlays */
+.process-loader-layer.blueprint .mock-logo { width: 40px; height: 40px; border: 1.5px solid #00ffcc; background-color: transparent; }
+.process-loader-layer.blueprint .mock-link { width: 50px; height: 10px; border: 1px solid #00ffcc; background-color: rgba(0, 255, 204, 0.05); }
+.process-loader-layer.blueprint .mock-title-line { height: 12px; border: 1.5px solid #00ffcc; background-color: transparent; }
+.process-loader-layer.blueprint .mock-title-line.max { width: 100%; }
+.process-loader-layer.blueprint .mock-title-line.mid { width: 70%; }
+.process-loader-layer.blueprint .mock-btn-shape { width: 120px; height: 36px; border: 1.5px solid #ffffff; background-color: rgba(255,255,255,0.1); }
+.process-loader-layer.blueprint .mock-image-box { width: 100%; height: 100%; border: 1.5px solid #00ffcc; background-color: rgba(0, 255, 204, 0.05); }
+.process-loader-layer.blueprint .wireframe-cross-line { opacity: 0.6; background-color: #00ffcc; }
+.process-loader-layer.blueprint .mock-card-img { width: 100%; height: 75%; border: 1.5px solid #00ffcc; background-color: transparent; }
+.process-loader-layer.blueprint .mock-card-line { width: 80%; height: 10px; border: 1px solid #00ffcc; }
+
+/* CAD Grid lines canvas overlay backdrop */
+.blueprint-grid-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  background-size: 25px 25px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 255, 204, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 255, 204, 0.04) 1px, transparent 1px);
+  transition: opacity 0.4s ease;
+}
+.process-loader-layer.blueprint .blueprint-grid-lines { opacity: 1; }
+
+/* Master Layer Fade out trigger */
+.process-loader-layer.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* --- Main Site Content Smooth Fade In Reveal --- */
+.app main {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: portfolioLayoutReveal 1.1s var(--ease-smooth) forwards;
+  animation-delay: 5.9s; /* Syncs up perfectly with the Blueprint phase exit */
+}
+
+@keyframes portfolioLayoutReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVE LAYOUT CONSTRAINTS (MOBILE INTERFACES)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .btn { width: 100%; }
+  .dark-toggle { bottom: 20px; right: 20px; padding: 12px 18px; }
+
+  /* Adjust spacing configurations on small phone layouts */
+  .mock-website-window { padding: 12px; gap: 14px; }
+  .mock-hero { gap: 15px; }
+  .mock-nav-links { gap: 8px; }
+  .mock-link { width: 30px !important; }
+  .mock-cards-grid { gap: 10px; }
+  
+  .stage-label-text {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-align: center;
+  }
+}

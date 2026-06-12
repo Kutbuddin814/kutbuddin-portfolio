@@ -1,0 +1,449 @@
+/* ==========================================================================
+   1. HERO SECTION & LAYOUT ENGINE
+   ========================================================================== */
+.hero {
+  position: relative;
+  min-height: 95vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    #102229 0%,
+    #162d38 50%,
+    #08543c 100%
+  );
+  color: #f8f4ef;
+  padding: 60px 24px;
+  box-sizing: border-box;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-size: 50px 50px;
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+  mask-image: radial-gradient(circle at center, black 40%, transparent 85%);
+  -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 85%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Background animated dynamic visual blooms */
+.blob {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  filter: blur(120px);
+  z-index: 1;
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+.blob1 {
+  background: #ff6224;
+  top: -10%;
+  left: -10%;
+}
+
+.blob2 {
+  background: #3cd09e;
+  bottom: -10%;
+  right: -10%;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.hero-heading-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+/* ==========================================================================
+   2. HERO TYPOGRAPHY & SHINE SWEEP SYSTEM
+   ========================================================================== */
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 13px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #3cd09e;
+}
+
+.hero-title {
+  font-size: clamp(44px, 7.5vw, 76px);
+  line-height: 1.1;
+  margin: 0;
+  width: 100%;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.shine-text {
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.25) 0%,
+    rgba(255,255,255,0.25) 40%,
+    rgba(255,255,255,1) 50%,
+    rgba(255,255,255,0.25) 60%,
+    rgba(255,255,255,0.25) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: textShineSweep 7s linear infinite;
+  display: block;
+  will-change: background-position;
+}
+
+.app.dark .shine-text {
+  background: linear-gradient(
+    90deg,
+    rgba(243,245,249,0.25) 0%,
+    rgba(243,245,249,0.25) 42%,
+    rgba(255,255,255,1) 50%,
+    rgba(243,245,249,0.25) 58%,
+    rgba(243,245,249,0.25) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+@keyframes textShineSweep {
+  0% { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+.hero-tagline {
+  max-width: 600px;
+  margin: 8px auto 24px auto;
+  color: #a0a5b0;
+  font-size: clamp(16px, 1.8vw, 19px);
+  line-height: 1.6;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* ==========================================================================
+   3. HIGH-END MOUSE-TRACKING BUTTON SYSTEM
+   ========================================================================== */
+.btn {
+  position: relative;
+  background: var(--accent-2, #ff6224);
+  color: #ffffff;
+  padding: 16px 36px;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.01em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  overflow: hidden;
+  z-index: 1;
+  box-shadow: 0 10px 25px rgba(255, 98, 36, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  text-decoration: none;
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at var(--x, 50%) var(--y, 50%), 
+    rgba(255, 255, 255, 0.35) 0%, 
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.btn:hover::before {
+  opacity: 1;
+}
+
+.btn:hover {
+  background: var(--accent-2-hover, #e04e13);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 35px rgba(255, 98, 36, 0.35);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn.outline {
+  background: transparent;
+  border: 2px solid var(--accent, #08543c);
+  color: var(--accent, #08543c);
+  box-shadow: none;
+}
+
+.hero .btn.outline {
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.hero .btn.outline::before {
+  background: radial-gradient(
+    circle at var(--x, 50%) var(--y, 50%), 
+    rgba(255, 255, 255, 0.2) 0%, 
+    transparent 60%
+  );
+}
+
+.hero .btn.outline:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: none;
+}
+
+/* ==========================================================================
+   4. MACOS DOCK MAGNIFICATION CONTAINER LAYOUT
+   ========================================================================== */
+.macro-dock-wrapper {
+  padding-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.macro-dock-container {
+  display: flex;
+  align-items: flex-end; /* Pin items to baseline so magnification scales upward */
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 10px 16px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.25),
+    inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  height: 86px; /* Prevents structural jumping during item magnification shifts */
+  box-sizing: border-box;
+}
+
+.dock-item-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  will-change: width, height;
+}
+
+.dock-icon-circle {
+  width: 100%;
+  height: 100%;
+  border-radius: 16px; /* High-fidelity Mac interface squircle curves */
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dock-item-wrapper:hover .dock-icon-circle {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.dock-emoji-glyph {
+  font-size: 1.6rem;
+  user-select: none;
+}
+
+/* ==========================================================================
+   5. INTERACTIVE MAC INTERFACE TOOLTIPS
+   ========================================================================== */
+.dock-tooltip {
+  position: absolute;
+  bottom: calc(100% + 14px);
+  left: 50%;
+  transform: translateX(-50%) scale(0.95);
+  background: #0d0f12;
+  color: #ffffff;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  letter-spacing: 0.2px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: opacity 0.15s ease, transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.15s;
+}
+
+.dock-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: #0d0f12 transparent transparent transparent;
+}
+
+.dock-item-wrapper:hover .dock-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) scale(1);
+}
+
+/* ==========================================================================
+   6. RESPONSIVE DESIGN & MOBILE CHIP RETROFITTING
+   ========================================================================== */
+@media (max-width: 768px) {
+  .hero {
+    padding: 80px 24px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: center; /* Centered alignment symmetry on mobile viewports */
+    gap: 12px;
+  }
+
+  .btn {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Safely drop fluid absolute transforms into responsive standalone chip blocks */
+  .macro-dock-wrapper {
+    padding-top: 32px;
+  }
+
+  .macro-dock-container {
+    height: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    padding: 0;
+    gap: 10px;
+  }
+
+  .dock-item-wrapper {
+    width: auto !important;
+    height: auto !important;
+  }
+
+  .dock-icon-circle {
+    padding: 10px 18px;
+    border-radius: 100px;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    flex-direction: row-reverse; /* Aligns emoji alongside text labels neatly */
+    width: auto;
+    height: auto;
+  }
+
+  .dock-tooltip {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    background: transparent;
+    box-shadow: none;
+    color: rgba(255, 255, 255, 0.85);
+    padding: 0;
+    font-size: 13px;
+    border: none;
+  }
+
+  .dock-tooltip::after {
+    display: none;
+  }
+
+  .dock-emoji-glyph {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero {
+    padding: 60px 16px;
+  }
+  
+  .hero-title {
+    font-size: clamp(36px, 10vw, 52px);
+  }
+  
+  .hero-tagline {
+    margin-bottom: 20px;
+    width: 100%;
+  }
+
+  .blob {
+    width: 280px;
+    height: 280px;
+  }
+}
+
+/* ==========================================================================
+   7. ACCESSIBILITY OVERRIDES
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .blob, .hero::before, .hero-title, .shine-text {
+    animation: none !important;
+    background: #1e293b !important;
+    -webkit-background-clip: initial !important;
+    background-clip: initial !important;
+    color: #ffffff !important;
+    -webkit-text-fill-color: initial !important;
+  }
+}

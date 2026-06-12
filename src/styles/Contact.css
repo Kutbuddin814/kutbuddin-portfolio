@@ -1,0 +1,286 @@
+/* ==========================================================================
+   DEFAULT LIGHT THEME VARIABLES (Default State: Clean & Crisp White)
+   ========================================================================== */
+.contact-section-root {
+  --contact-bg: #ffffff;
+  --contact-title-main: #0f172a;           /* Dark slate for high contrast */
+  --contact-kicker: #059669;               /* Emerald accent kicker */
+  --contact-card-inner-bg: linear-gradient(145deg, #f8fafc, #f1f5f9);
+  --contact-label: #64748b;                /* Muted label subtexts */
+  --contact-link: #1e293b;                 /* Standard crisp dark links */
+  --contact-avatar-bg: rgba(15, 23, 42, 0.05);
+  --contact-avatar-border: rgba(15, 23, 42, 0.1);
+  --contact-shimmer-border: rgba(15, 23, 42, 0.06);
+
+  padding: 80px 24px 120px 24px;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: var(--contact-bg);
+  transition: background-color 0.3s ease;
+}
+
+/* ==========================================================================
+   DARK MODE OVERRIDES (Triggered when parent wrapper has .dark class)
+   ========================================================================== */
+.dark .contact-section-root {
+  --contact-bg: #0b0f19;                   /* Deep space background */
+  --contact-title-main: #ffffff;           /* Flips "Contact Matrix" title to pure white */
+  --contact-kicker: #10b981;               /* Bright green emerald kicker */
+  --contact-card-inner-bg: linear-gradient(145deg, #0d0f12, rgba(255, 98, 36, 0.015));
+  --contact-label: #8e929b;                /* Silver slate descriptive tags */
+  --contact-link: #ffffff;                 /* Clean white active contact links */
+  --contact-avatar-bg: rgba(255, 255, 255, 0.05);
+  --contact-avatar-border: rgba(255, 255, 255, 0.1);
+  --contact-shimmer-border: rgba(255, 255, 255, 0.03);
+}
+
+/* ==========================================================================
+   SECTION HEADER STRUCTURAL CONTROLS
+   ========================================================================== */
+.section-header {
+  max-width: 1140px;
+  margin: 0 auto 28px auto;
+  padding-left: 4px;
+}
+
+.section-kicker {
+  color: var(--contact-kicker);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 0 0 6px 0;
+  transition: color 0.3s ease;
+}
+
+.contact-section-root .section-title {
+  color: var(--contact-title-main) !important;
+  font-size: clamp(28px, 5vw, 36px);
+  font-weight: 700;
+  margin: 0;
+  text-shadow: none !important;
+  transition: color 0.3s ease;
+}
+
+.contact-dock-zone {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1140px;
+  margin: 50px auto 0 auto;
+  width: 100%;
+}
+
+.contact-grid-deck {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  width: 100%;
+  align-items: center;
+}
+
+/* ==========================================================================
+   THE SHIMMER GLASS METALLIC CONTAINER SYSTEM
+   ========================================================================== */
+.contact-dock-card.shimmer-card {
+  position: relative;
+  overflow: hidden;
+  padding: 1px !important;
+  background: var(--contact-shimmer-border);
+  border: none !important;
+  border-radius: 24px;
+  will-change: transform, scale, opacity;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.contact-dock-card.shimmer-card::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  animation: rotateShimmer 8s linear infinite;
+  z-index: -2;
+}
+
+@keyframes rotateShimmer {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.contact-dock-card .card-inner {
+  position: relative;
+  background: var(--contact-card-inner-bg) !important;
+  border-radius: 23px;
+  padding: 40px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  box-sizing: border-box;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  transition: background 0.3s ease;
+}
+
+.contact-dock-card:hover .card-inner {
+  box-shadow: 0 25px 50px -12px rgba(255, 98, 36, 0.25);
+}
+
+/* Luxury Interactive Internal Glow Sheet */
+.card-dock-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(255, 98, 36, 0.06), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.contact-dock-card:hover .card-dock-glow {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   COMPONENT INTERNALS (AVATARS & LINKS)
+   ========================================================================== */
+.contact-avatar-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  background: var(--contact-avatar-bg);
+  border: 1px solid var(--contact-avatar-border);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.contact-emoji-glyph {
+  font-size: 24px;
+  user-select: none;
+}
+
+.contact-dock-card:hover .contact-avatar-icon {
+  transform: scale(1.1) rotate(6deg);
+  background: #ff6224 !important;
+  border-color: rgba(255, 98, 36, 0.4);
+}
+
+.contact-details-box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-label {
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--contact-label);
+  margin: 0 0 6px 0;
+  transition: color 0.3s ease;
+}
+
+.contact-link {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--contact-link);
+  word-break: break-all;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  line-height: 1.4;
+}
+
+.contact-dock-card:hover .contact-link {
+  color: #ff6224;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN AND TOUCH DECK RECONFIGURATIONS
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .contact-grid-deck {
+    gap: 20px;
+  }
+  .contact-dock-card .card-inner {
+    padding: 32px 20px;
+  }
+  .contact-link {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-section-root {
+    padding: 60px 20px 80px 20px;
+  }
+
+  .contact-grid-deck {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .contact-dock-card {
+    scale: 1 !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .contact-dock-card .card-inner {
+    padding: 20px 24px;
+    border-radius: 23px;
+    flex-direction: row;
+    text-align: left;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .contact-dock-card:hover {
+    transform: translateY(-2px);
+  }
+
+  .contact-avatar-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 14px;
+    flex-shrink: 0;
+  }
+  
+  .contact-emoji-glyph {
+    font-size: 20px;
+  }
+  
+  .contact-dock-card:hover .contact-avatar-icon {
+    transform: none;
+  }
+
+  .contact-details-box {
+    align-items: flex-start;
+  }
+
+  .contact-label {
+    margin-bottom: 2px;
+  }
+
+  .contact-link {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-dock-card .card-inner {
+    padding: 16px 20px;
+    gap: 16px;
+  }
+  .contact-link {
+    font-size: 14px;
+  }
+}

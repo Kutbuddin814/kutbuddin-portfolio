@@ -1,0 +1,309 @@
+/* ==========================================================================
+   GLOBAL LAYOUT AND SETUP (Default Light State)
+   ========================================================================== */
+.experience-section-root {
+  --exp-bg: #ffffff;
+  --exp-title-main: #0f172a;               /* Dark Slate for "Internship" title */
+  --exp-kicker: #059669;                   /* Balanced Section kicker */
+  --exp-card-inner-bg: linear-gradient(145deg, #f8fafc, #f1f5f9);
+  --exp-title-card: #1e293b;               /* Deep gray for role title */
+  --exp-date: #64748b;
+  --exp-intro: #d97706;                    /* Muted Amber for Light mode subheaders */
+  --exp-bullets: #334155;                  /* Highly readable text colors */
+  --exp-shimmer-border: rgba(15, 23, 42, 0.08);
+  --exp-outline-btn-text: #0f172a;
+  --exp-outline-btn-border: rgba(15, 23, 42, 0.15);
+
+  padding: 80px 16px;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: var(--exp-bg);
+  transition: background-color 0.3s ease;
+}
+
+/* ==========================================================================
+   DARK THEME OVERRIDES (.dark mode token variables active state)
+   ========================================================================== */
+.dark .experience-section-root {
+  --exp-bg: #0b0f19;                       /* Syncs back to clean deep space backgrounds */
+  --exp-title-main: #ffffff;               /* Turns "Internship" title crisp white */
+  --exp-kicker: #10b981;
+  --exp-card-inner-bg: linear-gradient(145deg, #0d0f12, rgba(255, 98, 36, 0.015));
+  --exp-title-card: #ffffff;               /* Role title changes cleanly to white */
+  --exp-date: #8e929b;
+  --exp-intro: #ffb86b;                    /* Dynamic orange neon-glowing subheader text */
+  --exp-bullets: #ffb93b;                  /* High impact neon orange descriptions */
+  --exp-shimmer-border: rgba(255, 255, 255, 0.03);
+  --exp-outline-btn-text: #ffffff;
+  --exp-outline-btn-border: rgba(255, 255, 255, 0.15);
+}
+
+/* ==========================================================================
+   SECTION HEADER ASSIGNMENTS
+   ========================================================================== */
+.section-header {
+  max-width: 1140px;
+  margin: 0 auto 28px auto;
+  padding-left: 4px;
+}
+
+.section-kicker {
+  color: var(--exp-kicker);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 0 0 6px 0;
+  transition: color 0.3s ease;
+}
+
+.section-title {
+  color: var(--exp-title-main);
+  font-size: clamp(28px, 5vw, 36px);
+  font-weight: 700;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+/* ==========================================================================
+   UNIFIED EXPERIENCE SHIMMER BORDER EFFECTS
+   ========================================================================== */
+.experience-card.shimmer-card {
+  position: relative;
+  overflow: hidden;
+  padding: 1px !important;
+  background: var(--exp-shimmer-border);
+  border: none !important;
+  border-radius: 28px;
+  width: 100%;
+  max-width: 1140px;
+  margin: 40px auto 0 auto;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, background-color 0.3s ease;
+}
+
+.experience-card.shimmer-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 35px 70px -15px rgba(0, 0, 0, 0.3), 0 15px 25px -10px rgba(0, 0, 0, 0.2);
+}
+
+.experience-card.shimmer-card::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  animation: rotateShimmer 8s linear infinite;
+  z-index: -2;
+}
+
+.experience-card .card-inner {
+  position: relative;
+  background: var(--exp-card-inner-bg) !important;
+  border-radius: 27px;
+  padding: 48px;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  transition: background 0.3s ease;
+}
+
+/* ==========================================================================
+   DYNAMIC LAYOUT ADAPTERS & INTERNAL TYPOGRAPHY
+   ========================================================================== */
+.experience-split-layout {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 32px;
+}
+
+.experience-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.experience-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.experience-title {
+  font-size: 34px !important;
+  margin: 0 0 8px 0;
+  line-height: 1.15;
+  color: var(--exp-title-card);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  transition: color 0.3s ease;
+}
+
+.experience-date {
+  font-size: 15px;
+  color: var(--exp-date);
+  margin: 0;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.experience-description-intro {
+  font-size: 17px;
+  color: var(--exp-intro);
+  margin: 0 0 16px 0;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+/* ==========================================================================
+   METADATA BADGES & BUTTONS TAG REPLICAS
+   ========================================================================== */
+.experience-meta-colored {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.experience-meta-colored span {
+  padding: 7px 18px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.experience-meta-colored .tag-custom-0 {
+  background: rgba(60, 208, 158, 0.12) !important;
+  color: #3cd09e !important;
+  border: 1px solid rgba(60, 208, 158, 0.2);
+}
+
+/* ==========================================================================
+   EXPERIENCE RE-STYLED BULLET POINTS
+   ========================================================================== */
+.experience-list {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.experience-list li {
+  position: relative;
+  padding-left: 24px;
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--exp-bullets);
+  margin-bottom: 14px;
+  transition: color 0.3s ease;
+}
+
+.experience-list li:last-child {
+  margin-bottom: 0;
+}
+
+.experience-list li::before {
+  content: "•";
+  position: absolute;
+  left: 4px;
+  top: 0;
+  color: #ff6224;
+  font-size: 20px;
+}
+
+/* ==========================================================================
+   ACTION ALIGNMENTS & BUTTON WRAPPERS
+   ========================================================================== */
+.experience-card .project-action-wrapper {
+  margin-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 28px;
+}
+
+.experience-card .project-actions-row {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.experience-card .project-actions-row .btn {
+  background: #ff6224;
+  color: #ffffff;
+  padding: 14px 28px;
+  border-radius: 100px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  white-space: nowrap;
+  box-shadow: 0 10px 24px rgba(255, 98, 36, 0.22);
+  transition: transform 0.2s cubic-bezier(0.2, 0, 0.2, 1), box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.experience-card .project-actions-row .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(255, 98, 36, 0.35);
+}
+
+.experience-card .project-actions-row .btn.btn-secondary-outline {
+  background: transparent;
+  color: var(--exp-outline-btn-text);
+  border: 2px solid var(--exp-outline-btn-border);
+  box-shadow: none;
+  padding: 12px 26px;
+  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease, transform 0.2s ease;
+}
+
+.experience-card .project-actions-row .btn.btn-secondary-outline:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: #ff6224;
+  color: #ff6224;
+  transform: translateY(-2px);
+}
+
+/* Shimmer Keyframe Engine Fallback Rotation */
+@keyframes rotateShimmer {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ==========================================================================
+   RESPONSIVE LAYOUT OVERRIDES (Syncs with Mobile Breakpoints)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .experience-card .card-inner {
+    padding: 32px;
+  }
+  .experience-title {
+    font-size: 28px !important;
+  }
+  .experience-header-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .experience-card .card-inner {
+    padding: 24px;
+  }
+  .experience-title {
+    font-size: 24px !important;
+  }
+  .experience-card .project-actions-row {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .experience-card .project-actions-row .btn {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}

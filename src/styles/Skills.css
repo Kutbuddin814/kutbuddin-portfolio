@@ -1,0 +1,317 @@
+/* ==========================================================================
+   GLOBAL LAYOUT AND SETUP (Default Light State)
+   ========================================================================== */
+
+.skills-section-modern {
+  /* Theme Variables - Light Baseline */
+  --skills-bg: #fafbfe;                 /* Off-white section background */
+  --skills-title: #0f172a;              /* Deep slate text headers */
+  --skills-kicker: #64748b;             /* Neutral muted gray badges */
+  --skills-card-bg: #ffffff;            /* Pure white inner sub-cards */
+  --skills-card-border: #e2e8f0;        /* Muted contours */
+  --skills-card-title: #1e293b;         /* Dark inner titles */
+  --skills-card-desc: #64748b;          /* Standard dark gray descriptions */
+  --skills-bar-track: #f1f5f9;          /* Bare structural background for animation rail */
+
+  padding: 100px 6% 140px 6%;
+  background-color: var(--skills-bg);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  transition: background-color 0.3s ease;
+}
+
+/* ==========================================================================
+   DARK THEME OVERRIDES (Active when .dark parent class exists)
+   ========================================================================== */
+.dark .skills-section-modern {
+  --skills-bg: #0b0f19;                 /* Deep space dark backdrop */
+  --skills-title: #ffffff;              /* Pure crisp white headers */
+  --skills-kicker: #94a3b8;             /* Light gray accent kickers */
+  --skills-card-bg: #111622;            /* Matte surface card backgrounds */
+  --skills-card-border: rgba(255, 255, 255, 0.08); /* Minimal glow borders */
+  --skills-card-title: #e2e8f0;         /* Clear silver-white text headings */
+  --skills-card-desc: #94a3b8;          /* Desaturated descriptions for lower fatigue */
+  --skills-bar-track: #1e293b;          /* Darker baseline track rail line */
+}
+
+/* ==========================================================================
+   HEADER ELEMENTS
+   ========================================================================== */
+
+.skills-header-container {
+  max-width: 1200px;
+  margin: 0 auto 60px auto;
+  text-align: left;
+}
+
+.skills-kicker-badge {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--skills-kicker);
+  display: inline-block;
+  margin-bottom: 8px;
+  transition: color 0.3s ease;
+}
+
+.skills-main-title {
+  font-size: 42px;
+  font-weight: 800;
+  color: var(--skills-title);
+  letter-spacing: -1px;
+  transition: color 0.3s ease;
+}
+
+/* Balanced Grid Setup */
+.matrix-split-grid {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.matrix-column-deck {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ==========================================================================
+   MASTER HUB CONTROLS & EFFECTS
+   ========================================================================== */
+
+.matrix-master-card {
+  position: relative;
+  background: #1e293b; /* Remains dark for structural balance and pops the accent accent colors */
+  padding: 24px 32px;
+  border-radius: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(30, 41, 59, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+
+.matrix-column-deck:hover .matrix-master-card {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px rgba(30, 41, 59, 0.15);
+}
+
+.matrix-master-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: var(--accent-clr);
+}
+
+.master-card-info h3 {
+  color: #ffffff;
+  font-size: 22px;
+  margin: 0 0 4px 0;
+  font-weight: 600;
+}
+
+.master-card-info p {
+  color: #94a3b8;
+  font-size: 14px;
+  margin: 0;
+}
+
+.master-interactive-trigger {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.trigger-status-text {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #64748b;
+  transition: color 0.25s ease;
+}
+
+.matrix-column-deck:hover .trigger-status-text {
+  color: #ffffff;
+}
+
+.trigger-plus-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.25s ease;
+}
+
+.matrix-column-deck:hover .trigger-plus-icon {
+  transform: rotate(45deg);
+  background: var(--accent-clr);
+}
+
+/* ==========================================================================
+   INTERACTIVE HOVER PULL-DOWN ENGINE
+   ========================================================================== */
+
+.matrix-cards-drop-zone {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  pointer-events: none;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), max-height 0.6s ease, visibility 0.4s;
+}
+
+/* Triggers pure drop down expansion clean without click configurations */
+.matrix-column-deck:hover .matrix-cards-drop-zone {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+  max-height: 1200px; /* Large enough container space limit for expansion */
+}
+
+.drop-zone-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 8px;
+}
+
+.matrix-sub-card {
+  background: var(--skills-card-bg);
+  border: 1px solid var(--skills-card-border);
+  border-radius: 14px;
+  padding: 22px 26px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.01);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.sub-card-header h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--skills-card-title);
+  margin: 0 0 6px 0;
+  transition: color 0.3s ease;
+}
+
+.sub-card-description {
+  font-size: 13.5px;
+  color: var(--skills-card-desc);
+  margin: 0 0 14px 0;
+  line-height: 1.45;
+  transition: color 0.3s ease;
+}
+
+/* ==========================================================================
+   AESTHETIC DECORATIVE ACCENT LINES
+   ========================================================================== */
+
+.metric-bar-track {
+  width: 100%;
+  height: 3px;
+  background: var(--skills-bar-track);
+  border-radius: 4px;
+  overflow: hidden;
+  transition: background-color 0.3s ease;
+}
+
+.metric-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+}
+
+/* ==========================================================================
+   DESKTOP VS MOBILE LABELS
+   ========================================================================== */
+
+.mobile-only {
+  display: none;
+}
+
+/* ==========================================================================
+   RESPONSIVE RETROFITTING & MEDIA QUERIES
+   ========================================================================== */
+
+@media (max-width: 968px) {
+  .matrix-split-grid {
+    flex-direction: column;
+    gap: 32px;
+  }
+}
+
+/* Mobile & Touch Interface Optimization */
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none;
+  }
+  
+  .mobile-only {
+    display: inline-block;
+  }
+
+  /* Disable CSS hover triggers on mobile layout to avoid browser confusion */
+  .matrix-column-deck:hover .matrix-cards-drop-zone {
+    opacity: 0;
+    visibility: hidden;
+    max-height: 0;
+  }
+
+  /* Force open state based on state toggle instead of hover */
+  .matrix-column-deck.mobile-forced-open .matrix-cards-drop-zone {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+    max-height: 1500px;
+  }
+
+  .matrix-column-deck.mobile-forced-open .trigger-plus-icon {
+    transform: rotate(45deg);
+    background: var(--accent-clr);
+  }
+  
+  .matrix-column-deck.mobile-forced-open .matrix-master-card {
+    box-shadow: 0 12px 24px rgba(30, 41, 59, 0.12);
+  }
+}
+
+@media (max-width: 480px) {
+  .skills-section-modern {
+    padding: 60px 4% 80px 4%;
+  }
+
+  .skills-main-title {
+    font-size: 32px;
+  }
+
+  .matrix-master-card {
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .master-card-info h3 {
+    font-size: 18px;
+  }
+
+  .master-card-info p {
+    font-size: 13px;
+  }
+
+  .matrix-sub-card {
+    padding: 16px 20px;
+    border-radius: 10px;
+  }
+}
