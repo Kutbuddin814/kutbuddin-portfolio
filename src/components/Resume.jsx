@@ -6,7 +6,7 @@ import "../styles/Resume.css";
 export default function Resume() {
   const [showResume, setShowResume] = useState(false);
 
-  // 1. Dynamic Motion Hooks for handling premium 3D Hover Tilt Effects
+  // Dynamic Motion Hooks for premium 3D Hover Tilt Effects
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -28,7 +28,7 @@ export default function Resume() {
   };
 
   const handleMouseLeave = () => {
-    // Return smooth animation transitions back to original baseline resting state
+    // Return smooth animation transitions back to original resting state
     mouseX.set(0);
     mouseY.set(0);
   };
@@ -85,7 +85,7 @@ export default function Resume() {
         </a>
       </div>
 
-      {/* Modern Elastic Full Viewport Scale Overlay */}
+      {/* Embedded Component-scoped modal matching the exact Project.jsx blueprint */}
       <AnimatePresence>
         {showResume && (
           <motion.div
@@ -95,19 +95,25 @@ export default function Resume() {
             exit={{ opacity: 0 }}
             onClick={() => setShowResume(false)}
           >
-            <button className="close-modal" onClick={() => setShowResume(false)} aria-label="Close overlay">
-              ✕
-            </button>
-            <motion.img
-              src="/Kutbuddin_Shaikh_CV.png"
-              alt="Complete verified CV preview frame"
-              className="modal-image resume-modal-target"
-              initial={{ scale: 0.9, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
-              transition={{ type: "spring", stiffness: 300, damping: 25 }}
-              onClick={(e) => e.stopPropagation()}
-            />
+            <div className="modal-image-wrapper">
+              <button 
+                className="close-modal" 
+                onClick={() => setShowResume(false)} 
+                aria-label="Close overlay"
+              >
+                ✕
+              </button>
+              <motion.img
+                src="/Kutbuddin_Shaikh_CV.png"
+                alt="Complete verified CV preview frame"
+                className="modal-image resume-modal-target"
+                initial={{ scale: 0.94, y: 15 }}
+                animate={{ scale: 1, y: 0 }}
+                exit={{ scale: 0.94, y: 15 }}
+                transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                onClick={(e) => e.stopPropagation()}
+              />
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

@@ -3,27 +3,29 @@
    ========================================================================== */
 .resume-section-root {
   --resume-bg: #ffffff;
-  --resume-title-main: #0f172a;             /* Dark slate text */
-  --resume-kicker: #059669;                 /* Emerald green accent */
+  --resume-title-main: #0f172a; 
+  --resume-kicker: #059669; 
   --resume-card-bg: #ffffff;
   --resume-card-border: rgba(15, 23, 42, 0.08);
   --resume-card-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.15), 0 20px 40px -15px rgba(0, 0, 0, 0.2);
   --resume-img-border: rgba(0, 0, 0, 0.05);
   --resume-img-opacity: 1;
 
+  position: relative; /* CRITICAL: Establishes the exact relative container scope, matching Project layout */
   padding: 80px 16px;
   width: 100%;
   box-sizing: border-box;
   background-color: var(--resume-bg);
   transition: background-color 0.3s ease;
+  overflow: hidden; /* Restricts modal container boundaries safely */
 }
 
 /* ==========================================================================
-   DARK THEME OVERRIDES (Triggered when parent wrapper has .dark class)
+   DARK THEME OVERRIDES
    ========================================================================== */
 .dark .resume-section-root {
-  --resume-bg: #0b0f19;                     /* Deep space background background */
-  --resume-title-main: #ffffff;             /* Turns "Curriculum Vitae" pure white */
+  --resume-bg: #0b0f19; 
+  --resume-title-main: #ffffff; 
   --resume-kicker: #10b981;
   --resume-card-bg: #15181f;
   --resume-card-border: rgba(255, 255, 255, 0.05);
@@ -64,7 +66,7 @@
    3D PERSPECTIVE INTERACTIVE VIEWPORT ENGINE
    ========================================================================== */
 .resume-3d-perspective-wrapper {
-  perspective: 1200px; /* Establishes depth of field for 3D translations */
+  perspective: 1200px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -94,12 +96,12 @@
   border-radius: 12px;
   border: 1px solid var(--resume-img-border);
   opacity: var(--resume-img-opacity);
-  pointer-events: none; /* Prevents visual dragging bugs on desktop devices */
+  pointer-events: none;
   transition: border-color 0.3s ease, opacity 0.3s ease;
 }
 
 /* ==========================================================================
-   HOVER HIGHLIGHT GLARE LAYER & OVERLAY BADGES
+   HOVER INTERACTION DESIGN PRESETS
    ========================================================================== */
 .resume-interactive-card::after {
   content: "";
@@ -116,7 +118,6 @@
   opacity: 1;
 }
 
-/* Contextual Micro-indicators floating along Z-Axis */
 .resume-hover-overlay {
   position: absolute;
   inset: 0;
@@ -126,7 +127,7 @@
   background: rgba(13, 15, 18, 0.4);
   border-radius: 20px;
   opacity: 0;
-  transform: translateZ(20px) scale(0.95); /* Shifts position forward */
+  transform: translateZ(20px) scale(0.95);
   transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.2, 0, 0.2, 1);
 }
 
@@ -149,7 +150,7 @@
 }
 
 /* ==========================================================================
-   BUTTON STRUCTURAL ADAPTATIONS
+   BUTTON LAYOUT SYSTEM
    ========================================================================== */
 .resume-buttons {
   text-align: center;
@@ -186,12 +187,69 @@
 }
 
 /* ==========================================================================
-   EXPANDED TARGET MODAL SCALE SETTINGS
+   SECTION-CONTAINED MODAL CLONE (Exact Project Layout Sync)
    ========================================================================== */
+.image-modal {
+  position: absolute;       /* CRITICAL EXACT MATCH: Locks popup strictly inside the Resume component context bounds */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(11, 15, 25, 0.94); 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;            /* Layers over elements within the container framework neatly */
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.modal-image-wrapper {
+  position: relative;
+  max-width: min(500px, 90%); /* Compact layout read safety frame */
+  max-height: 85vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-image {
+  width: 100%;
+  height: auto;
+  max-height: 75vh;
+  object-fit: contain;
+  border-radius: 16px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.close-modal {
+  position: absolute;
+  top: -48px;               /* Perfectly maps position layout right over top right edge of sheet */
+  right: 0;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  z-index: 1010;
+}
+
+.close-modal:hover {
+  background: #ff6224;
+  border-color: #ff6224;
+  transform: scale(1.05);
+}
+
 .resume-modal-target {
-  max-width: 520px !important; /* Maximizes layout height read scales cleanly */
-  max-height: 85vh !important;
-  border: 4px solid rgba(255, 255, 255, 0.08);
   background: #ffffff;
 }
 
@@ -201,21 +259,36 @@
 @media (max-width: 576px) {
   .resume-3d-perspective-wrapper {
     margin: 40px auto;
-    perspective: none; /* Disable 3D depth matrices on small touch targets to prevent layout skewing */
+    perspective: none; 
   }
   .resume-interactive-card {
     max-width: 290px;
     padding: 8px;
   }
   .resume-hover-overlay {
-    transform: none !important; /* Reverts position matrices across standard arrays */
+    transform: none !important;
     background: rgba(13, 15, 18, 0.2);
   }
   .resume-buttons .btn {
     width: 85%;
     box-sizing: border-box;
   }
-  .resume-modal-target {
-    max-width: 90% !important;
+  .modal-image-wrapper {
+    max-width: 95%;
+  }
+  .close-modal {
+    top: -42px;
+    right: 4px;
+  }
+}
+
+@media (max-width: 280px) {
+  .resume-interactive-card {
+    max-width: 215px;
+  }
+  .resume-buttons .btn {
+    width: 95%;
+    font-size: 13px;
+    padding: 12px 16px;
   }
 }
